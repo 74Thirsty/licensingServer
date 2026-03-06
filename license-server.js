@@ -7,18 +7,63 @@ const app = express();
 app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
-const LICENSE_SECRET = process.env.LICENSE_SECRET || 'change-me-in-prod';
+const PRIVATE_KEY_PATH =
+  process.env.LICENSE_PRIVATE_KEY_PATH ||
+  path.join(process.cwd(), 'keys', 'license-private.pem');
+const PUBLIC_KEY_PATH =
+  process.env.LICENSE_PUBLIC_KEY_PATH ||
+  path.join(process.cwd(), 'keys', 'license-public.pem');
 
 // Simple JSON file store for licenses
 const DATA_FILE = path.join(process.cwd(), 'licenses.json');
 
+function createLicenseKey(filePath, type) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`${type} key file not found at ${filePath}`);
+  }
+
+  const rawPem = fs.readFileSync(filePath, 'utf8');
+  if (!rawPem || !rawPem.trim()) {
+    throw new Error(`${type} key file is empty: ${filePath}`);
+  }
+
+  try {
+    return type === 'private'
+      ? crypto.createPrivateKey(rawPem)
+      : crypto.createPublicKey(rawPem);
+  } catch (err) {
+    throw new Error(`Failed to parse ${type} key PEM at ${filePath}: ${err.message}`);
+  }
+}
+
+let PRIVATE_KEY;
+let PUBLIC_KEY;
+
+try {
+  PRIVATE_KEY = createLicenseKey(PRIVATE_KEY_PATH, 'private');
+  PUBLIC_KEY = createLicenseKey(PUBLIC_KEY_PATH, 'public');
+} catch (err) {
+  console.error(`Fatal key configuration error: ${err.message}`);
+  process.exit(1);
+}
+
 function loadLicenses() {
   if (!fs.existsSync(DATA_FILE)) return {};
-  return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+
+  try {
+    const raw = fs.readFileSync(DATA_FILE, 'utf8');
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'object' && parsed !== null ? parsed : {};
+  } catch (err) {
+    console.error(`Failed to read ${DATA_FILE}: ${err.message}`);
+    return {};
+  }
 }
 
 function saveLicenses(licenses) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(licenses, null, 2), 'utf8');
+  const tempFile = `${DATA_FILE}.tmp`;
+  fs.writeFileSync(tempFile, JSON.stringify(licenses, null, 2), 'utf8');
+  fs.renameSync(tempFile, DATA_FILE);
 }
 
 let licenses = loadLicenses();
@@ -33,26 +78,66 @@ function base64url(buf) {
     .replace(/\//g, '_');
 }
 
+function fromBase64url(value) {
+  const normalized = value.replace(/-/g, '+').replace(/_/g, '/');
+  const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=');
+  return Buffer.from(padded, 'base64');
+}
+
+function validatePayload(payload) {
+  if (!payload || typeof payload !== 'object') {
+    return { ok: false, reason: 'bad_payload' };
+  }
+
+  if (typeof payload.productId !== 'string' || !payload.productId.trim()) {
+    return { ok: false, reason: 'bad_product_id' };
+  }
+
+  if (
+    !Number.isInteger(payload.expiresAt) ||
+    payload.expiresAt <= 0 ||
+    !Number.isFinite(payload.expiresAt)
+  ) {
+    return { ok: false, reason: 'bad_expiry' };
+  }
+
+  return { ok: true };
+}
+
 function signPayload(payloadObj) {
+  const payloadValidation = validatePayload(payloadObj);
+  if (!payloadValidation.ok) {
+    throw new Error(payloadValidation.reason);
+  }
+
   const payload = JSON.stringify(payloadObj);
   const payloadB64 = base64url(payload);
-  const hmac = crypto
-    .createHmac('sha256', LICENSE_SECRET)
-    .update(payload)
-    .digest();
-  const sigB64 = base64url(hmac);
+  const signature = crypto.sign('sha256', Buffer.from(payload, 'utf8'), {
+    key: PRIVATE_KEY,
+    padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+    saltLength: 32,
+  });
+  const sigB64 = base64url(signature);
   return `${payloadB64}.${sigB64}`;
 }
 
 function verifyKey(key) {
+  if (typeof key !== 'string') {
+    return { ok: false, reason: 'bad_format' };
+  }
+
   const parts = key.split('.');
   if (parts.length !== 2) return { ok: false, reason: 'bad_format' };
 
   const [payloadB64, sigB64] = parts;
-  const payloadJson = Buffer.from(
-    payloadB64.replace(/-/g, '+').replace(/_/g, '/'),
-    'base64'
-  ).toString('utf8');
+  let payloadJson;
+  let signature;
+  try {
+    payloadJson = fromBase64url(payloadB64).toString('utf8');
+    signature = fromBase64url(sigB64);
+  } catch {
+    return { ok: false, reason: 'bad_format' };
+  }
 
   let payload;
   try {
@@ -61,13 +146,18 @@ function verifyKey(key) {
     return { ok: false, reason: 'bad_payload' };
   }
 
-  const expectedSig = crypto
-    .createHmac('sha256', LICENSE_SECRET)
-    .update(payloadJson)
-    .digest();
-  const expectedSigB64 = base64url(expectedSig);
+  const payloadValidation = validatePayload(payload);
+  if (!payloadValidation.ok) {
+    return { ok: false, reason: payloadValidation.reason };
+  }
 
-  if (!crypto.timingSafeEqual(Buffer.from(sigB64), Buffer.from(expectedSigB64))) {
+  const isValid = crypto.verify('sha256', Buffer.from(payloadJson, 'utf8'), {
+    key: PUBLIC_KEY,
+    padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+    saltLength: 32,
+  }, signature);
+
+  if (!isValid) {
     return { ok: false, reason: 'bad_signature' };
   }
 
@@ -79,13 +169,19 @@ function verifyKey(key) {
 // Admin: create license
 app.post('/admin/licenses', (req, res) => {
   const { productId, expiresAt } = req.body;
+  const payload = { productId, expiresAt };
+  const payloadValidation = validatePayload(payload);
 
-  if (!productId || !expiresAt) {
-    return res.status(400).json({ error: 'productId and expiresAt required' });
+  if (!payloadValidation.ok) {
+    return res.status(400).json({ error: payloadValidation.reason });
   }
 
-  const payload = { productId, expiresAt };
-  const key = signPayload(payload);
+  let key;
+  try {
+    key = signPayload(payload);
+  } catch (err) {
+    return res.status(500).json({ error: `failed_to_sign: ${err.message}` });
+  }
 
   licenses[key] = {
     key,
