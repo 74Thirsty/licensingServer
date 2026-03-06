@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Licensing Admin</title></head>
+<body>
+  <h1>Licensing Admin</h1>
+  <p>Set bearer token and call admin endpoints.</p>
+  <input id="token" placeholder="admin token" style="width:320px" />
+  <h3>Create Product</h3>
+  <input id="pname" placeholder="product name" />
+  <button onclick="createProduct()">Create</button>
+  <h3>Create License</h3>
+  <input id="pid" placeholder="product id" style="width:320px" />
+  <button onclick="createLicense()">Create Trial License</button>
+  <pre id="out"></pre>
+<script>
+async function api(path, body, method='POST') {
+  const token = document.getElementById('token').value;
+  const r = await fetch(path, {method, headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body: body ? JSON.stringify(body) : undefined});
+  const t = await r.text();
+  try { return JSON.parse(t) } catch { return t }
+}
+async function createProduct(){
+  const name = document.getElementById('pname').value;
+  const data = await api('/v1/admin/products',{name, policy_defaults:{max_devices:2,offline_grace_days:7,check_in_interval_hours:24,features:{pro:true}}});
+  document.getElementById('out').textContent = JSON.stringify(data,null,2);
+}
+async function createLicense(){
+  const product_id = document.getElementById('pid').value;
+  const expires_at = new Date(Date.now()+14*86400000).toISOString();
+  const data = await api('/v1/admin/licenses',{product_id,type:'trial',expires_at,metadata:{features:{pro:true}}});
+  document.getElementById('out').textContent = JSON.stringify(data,null,2);
+}
+</script>
+</body></html>

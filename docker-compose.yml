@@ -1,0 +1,11 @@
+services:
+  licensing-api:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - ADMIN_TOKEN=dev-admin-token-change-me
+      - DEVICE_SALT=dev-device-salt-change-me
+    volumes:
+      - ./data.json:/app/data.json

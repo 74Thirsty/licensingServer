@@ -1,0 +1,9 @@
+{
+  "licenseId": "LIC-0001",
+  "customer": "Chris Hirschauer",
+  "product": "Gnomon 2.0",
+  "plan": "Pro",
+  "expiresAt": "2026-12-31T23:59:59Z",
+  "machineHash": "optional-hardware-binding",
+  "issuedAt": "2026-02-25T18:00:00Z"
+}

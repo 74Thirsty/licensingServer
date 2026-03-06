@@ -1,0 +1,17 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title": "Universal Licensing Server", "version": "1.0.0"},
+  "servers": [{"url": "http://localhost:4000"}],
+  "paths": {
+    "/v1/validate": {"post": {"summary": "Validate license", "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["product_id", "license_key", "device_fingerprint"]}}}}, "responses": {"200": {"description": "Validation result"}}}},
+    "/v1/activate": {"post": {"summary": "Activate license", "responses": {"200": {"description": "Activation result"}}}},
+    "/v1/deactivate": {"post": {"summary": "Deactivate device", "responses": {"200": {"description": "Deactivation result"}}}},
+    "/v1/offline-token": {"post": {"summary": "Issue offline token", "responses": {"200": {"description": "Signed token"}}}},
+    "/v1/admin/products": {"post": {"summary": "Create product", "responses": {"201": {"description": "Product"}}}},
+    "/v1/admin/licenses": {"post": {"summary": "Create license", "responses": {"201": {"description": "License"}}}},
+    "/v1/admin/licenses/{id}": {"get": {"summary": "Get license", "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}], "responses": {"200": {"description": "License details"}}}},
+    "/v1/admin/licenses/{id}/revoke": {"post": {"summary": "Revoke license", "responses": {"200": {"description": "Revoke result"}}}},
+    "/v1/admin/licenses/{id}/reset-activations": {"post": {"summary": "Reset activations", "responses": {"200": {"description": "Reset result"}}}},
+    "/v1/admin/audit": {"get": {"summary": "List audit logs", "responses": {"200": {"description": "Audit log entries"}}}}
+  }
+}

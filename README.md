@@ -1,4 +1,19 @@
-# licensingServer
+# Universal Licensing Server
+
+Multi-product licensing API with activation, validation, offline Ed25519 tokens, admin endpoints, audit logging, rate limiting, and a reference client SDK.
+
+## Run
+```bash
+npm install
+npm start
+```
+
+- API: `http://localhost:4000`
+- Admin UI: `http://localhost:4000/admin`
+- Docs: `http://localhost:4000/docs/README.md`
+- OpenAPI: `http://localhost:4000/openapi.json`
+
+Full setup guide: [SETUP.md](./SETUP.md)
 
 Simple license issuing/validation service.
 
