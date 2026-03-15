@@ -34,3 +34,26 @@ mkdir -p keys
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out keys/license-private.pem
 openssl rsa -pubout -in keys/license-private.pem -out keys/license-public.pem
 ```
+
+
+## Complete setup walkthrough
+
+Run the setup wizard from repo root:
+
+```bash
+./scripts/setup.sh
+```
+
+What it does:
+- Verifies required tooling (`node`, `npm`, `curl`).
+- Creates `package.json` if missing.
+- Installs `express`.
+- Creates `.env` with `PORT` and a generated `LICENSE_SECRET` if missing.
+- Optionally runs a full API smoke test (`create -> validate -> revoke -> validate`).
+
+After setup:
+
+```bash
+source .env
+npm start
+```
