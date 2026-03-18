@@ -112,6 +112,26 @@ function sanitizeProduct(product) {
   return safe;
 }
 
+function deleteProductCascade(productId) {
+  const product = state.products[productId];
+  if (!product) return null;
+
+  const licenses = Object.values(state.licenses).filter((license) => license.product_id === productId);
+  const licenseIds = new Set(licenses.map((license) => license.id));
+  const licenseKeys = licenses.map((license) => license.license_key);
+  const activations = Object.values(state.activations).filter((activation) => licenseIds.has(activation.license_id));
+
+  for (const activation of activations) delete state.activations[activation.id];
+  for (const licenseKey of licenseKeys) delete state.licenses[licenseKey];
+  delete state.products[productId];
+
+  return {
+    product,
+    deleted_license_count: licenses.length,
+    deleted_activation_count: activations.length,
+  };
+}
+
 function activeDeviceCount(licenseId) {
   return Object.values(state.activations).filter((activation) => activation.license_id === licenseId && activation.status === 'active').length;
 }
@@ -254,6 +274,25 @@ const server = http.createServer(async (req, res) => {
       const product = { id, name: body.name, created_at: nowIso(), offline_public_key: kp.publicKey.export({format:'pem',type:'spki'}).toString(), signing_private_key_pem: kp.privateKey.export({format:'pem',type:'pkcs8'}).toString(), policy_defaults: { max_devices: body.policy_defaults?.max_devices ?? 1, max_seats: body.policy_defaults?.max_seats ?? null, offline_grace_days: body.policy_defaults?.offline_grace_days ?? 7, check_in_interval_hours: body.policy_defaults?.check_in_interval_hours ?? 24, trial_length_days: body.policy_defaults?.trial_length_days ?? 14, features: body.policy_defaults?.features ?? {}, privacy_mode: body.policy_defaults?.privacy_mode ?? 'fingerprint' } };
       state.products[id] = product; saveState(state); recordAudit('product_created',{id,name:product.name},id,null);
       return json(res, 201, sanitizeProduct(product));
+    }
+
+    if (req.method === 'DELETE' && url.pathname.startsWith('/v1/admin/products/')) {
+      const id = decodeURIComponent(url.pathname.split('/')[4] || '');
+      const deletion = deleteProductCascade(id);
+      if (!deletion) return json(res, 404, { error: 'product_not_found' });
+      saveState(state);
+      recordAudit('product_deleted', {
+        id,
+        name: deletion.product.name,
+        deleted_license_count: deletion.deleted_license_count,
+        deleted_activation_count: deletion.deleted_activation_count,
+      }, id, null);
+      return json(res, 200, {
+        ok: true,
+        deleted_product_id: id,
+        deleted_license_count: deletion.deleted_license_count,
+        deleted_activation_count: deletion.deleted_activation_count,
+      });
     }
 
     if (req.method === 'POST' && url.pathname === '/v1/admin/licenses') {

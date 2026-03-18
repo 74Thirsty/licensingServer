@@ -220,6 +220,27 @@
       border: 1px dashed rgba(255,255,255,0.1);
       border-radius: 12px;
     }
+    .banner {
+      display: none;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(54, 211, 153, 0.28);
+      background: rgba(54, 211, 153, 0.12);
+      color: #b9f6de;
+    }
+    .banner.visible { display: flex; }
+    .banner-message {
+      display: grid;
+      gap: 4px;
+    }
+    .banner strong { color: white; }
+    .product-row-highlight {
+      outline: 1px solid rgba(54, 211, 153, 0.45);
+      background: rgba(54, 211, 153, 0.08);
+    }
     @media (max-inline-size: 1100px) {
       .panel.span-4, .panel.span-5, .panel.span-6, .panel.span-7, .panel.span-8 { grid-column: span 12; }
       .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -251,6 +272,13 @@
         <button id="saveToken">Save token</button>
         <button class="secondary" id="refreshAll">Refresh data</button>
         <button class="secondary" id="clearToken">Clear token</button>
+      </div>
+      <div id="productNotice" class="banner" aria-live="polite">
+        <div class="banner-message">
+          <strong id="productNoticeTitle">Product created</strong>
+          <span id="productNoticeBody"></span>
+        </div>
+        <button class="secondary" id="dismissProductNotice" type="button">Dismiss</button>
       </div>
       <div class="metrics">
         <div class="metric"><div class="metric-label">Products</div><div class="metric-value" id="metricProducts">0</div></div>
@@ -358,6 +386,7 @@
       licenses: [],
       audit: [],
       selectedLicenseKey: null,
+      lastCreatedProductId: null,
     };
 
     const els = {
@@ -381,6 +410,10 @@
       productForm: document.getElementById('productForm'),
       licenseForm: document.getElementById('licenseForm'),
       offlineForm: document.getElementById('offlineForm'),
+      productNotice: document.getElementById('productNotice'),
+      productNoticeTitle: document.getElementById('productNoticeTitle'),
+      productNoticeBody: document.getElementById('productNoticeBody'),
+      dismissProductNotice: document.getElementById('dismissProductNotice'),
     };
 
     const tokenStorageKey = 'licensing_admin_token';
@@ -407,6 +440,27 @@
       const hasToken = Boolean(els.token.value.trim());
       els.authStatus.textContent = hasToken ? 'Token loaded' : 'Token not set';
       els.authStatus.className = `status-pill ${hasToken ? 'good' : 'bad'}`;
+    }
+
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function showProductNotice({ title, body }) {
+      els.productNoticeTitle.textContent = title;
+      els.productNoticeBody.textContent = body;
+      els.productNotice.classList.add('visible');
+    }
+
+    function hideProductNotice() {
+      els.productNotice.classList.remove('visible');
+      els.productNoticeBody.textContent = '';
     }
 
     function isoFromLocalDateTime(value) {
@@ -466,8 +520,16 @@
         </thead>
         <tbody>
           ${state.products.map((product) => `
-            <tr>
-              <td><strong>${product.name}</strong></td>
+            <tr class="${product.id === state.lastCreatedProductId ? 'product-row-highlight' : ''}">
+              <td>
+                <div class="stack">
+                  <strong>${escapeHtml(product.name)}</strong>
+                  <div class="split">
+                    <button class="secondary" data-action="copy-product-id" data-product-id="${product.id}">Copy ID</button>
+                    <button class="danger" data-action="delete-product" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}">Delete</button>
+                  </div>
+                </div>
+              </td>
               <td class="mono">${product.id}</td>
               <td>
                 <div class="stack">
@@ -676,6 +738,11 @@
         },
       };
       const response = await api('/v1/admin/products', { method: 'POST', body: payload });
+      state.lastCreatedProductId = response.id;
+      showProductNotice({
+        title: 'Product created',
+        body: `${response.name} is ready. Product ID ${response.id} has been copied to the products table and is highlighted below.`,
+      });
       event.currentTarget.reset();
       event.currentTarget.max_devices.value = 2;
       event.currentTarget.offline_grace_days.value = 7;
@@ -720,7 +787,28 @@
     async function onTableClick(event) {
       const button = event.target.closest('button[data-action]');
       if (!button) return;
-      const { action, licenseKey, activationId } = button.dataset;
+      const { action, licenseKey, activationId, productId, productName } = button.dataset;
+      if (action === 'copy-product-id') {
+        await navigator.clipboard.writeText(productId);
+        showProductNotice({ title: 'Product ID copied', body: `${productId} is now in your clipboard.` });
+        return;
+      }
+      if (action === 'delete-product') {
+        const confirmed = window.confirm(`Delete product ${productName || productId}? This hard-deletes all linked licenses and activations.`);
+        if (!confirmed) return;
+        const response = await api(`/v1/admin/products/${encodeURIComponent(productId)}`, { method: 'DELETE' });
+        if (state.lastCreatedProductId === productId) state.lastCreatedProductId = null;
+        showProductNotice({
+          title: 'Product deleted',
+          body: `${productName || productId} deleted. Removed ${response.deleted_license_count} licenses and ${response.deleted_activation_count} activations.`,
+        });
+        if (state.selectedLicenseKey && state.licenses.some((license) => license.license_key === state.selectedLicenseKey && license.product_id === productId)) {
+          state.selectedLicenseKey = null;
+          els.licenseDetail.innerHTML = 'Select a license to inspect activations.';
+        }
+        await refreshAll();
+        return;
+      }
       if (action === 'select-license') {
         await loadLicenseDetail(licenseKey);
         return;
@@ -771,8 +859,10 @@
     els.productForm.addEventListener('submit', (event) => createProduct(event).catch(reportError));
     els.licenseForm.addEventListener('submit', (event) => createLicense(event).catch(reportError));
     els.offlineForm.addEventListener('submit', (event) => issueOfflineToken(event).catch(reportError));
+    els.productsTable.addEventListener('click', (event) => onTableClick(event).catch(reportError));
     els.licensesTable.addEventListener('click', (event) => onTableClick(event).catch(reportError));
     els.licenseDetail.addEventListener('click', (event) => onTableClick(event).catch(reportError));
+    els.dismissProductNotice.addEventListener('click', hideProductNotice);
     els.licenseFilterProduct.addEventListener('change', () => refreshLicenses().catch(reportError));
     els.licenseFilterStatus.addEventListener('change', () => refreshLicenses().catch(reportError));
     els.token.addEventListener('input', updateAuthUi);

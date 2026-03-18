@@ -15,6 +15,376 @@
         "features": {},
         "privacy_mode": "fingerprint"
       }
+    },
+    "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485": {
+      "id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "name": "Setup Smoke Test",
+      "created_at": "2026-03-18T23:20:19.849Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAcyzFmXoqTOPpB90fWCZx/GckQRQi46PeLmvSubzjymU=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEICSEmr6eMJ4XA0CxLksM5ao5sRGELBPsEZ/Mi0OdQhbi\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 1,
+        "max_seats": null,
+        "offline_grace_days": 7,
+        "check_in_interval_hours": 24,
+        "trial_length_days": 14,
+        "features": {},
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_548f56ef-27d8-422d-969c-080e7f64d1fe": {
+      "id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+      "name": "Setup Smoke Test",
+      "created_at": "2026-03-18T23:20:36.845Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAfAnFumfzR545N46oIEA2TPOBcy7BqjTM6nAEQkGajOo=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIJcBwCb63OPMrXltaPAUpZRPyjd3lYHyDp5gL5zcgd/O\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 1,
+        "max_seats": null,
+        "offline_grace_days": 7,
+        "check_in_interval_hours": 24,
+        "trial_length_days": 14,
+        "features": {},
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_9ae8b0a4-c2b8-42e8-be42-cb948ca41ec6": {
+      "id": "prd_9ae8b0a4-c2b8-42e8-be42-cb948ca41ec6",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:06.270Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAPqe4BwyJc2h+LPdHiqjzyJVUpIyq9CHpD1Zb3NEFB4Y=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIA8jCQ7ZeKTkITU7KlphupsqMzSW4QFdW9bslQs/r9N2\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_95a37ad3-1148-43a1-a5c7-e78755374bb9": {
+      "id": "prd_95a37ad3-1148-43a1-a5c7-e78755374bb9",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:11.438Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAvXbCwYYQRlOrV+72TzUlNc3d5lFG2ktH6M8jnMGWWm8=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILIPGOTvSWnADhTPqnN1Ko++z8B6W/f1RZ+Jlh/C29zC\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_d174a8bc-470e-42dc-b0bd-57bae9866238": {
+      "id": "prd_d174a8bc-470e-42dc-b0bd-57bae9866238",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:12.140Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA/Spyg7dDow8yRwHHx2LqCDdQ7nk/cOZcCc6agMXubGk=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIKrP8aj1qxbj2hLp/Caie71Au4ZwArAD3EU/mJA+VZIC\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_952cea45-b8b4-48e8-a85a-6ff9d957cdb1": {
+      "id": "prd_952cea45-b8b4-48e8-a85a-6ff9d957cdb1",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:12.418Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAdIKvN436QTJGiYk4a70H3+oavYxjC0oTGiMHYqTwIGQ=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIE+naBWOSNXQDTVeI6SbQO5Fjjtw92KNsj5d8zkXPB5+\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_e1e1df6f-15df-43e1-b2b9-c9c6b28bb7fe": {
+      "id": "prd_e1e1df6f-15df-43e1-b2b9-c9c6b28bb7fe",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:12.627Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAPXW/OkBRYmfPlz9rkLc5YCnEAHuptOImuZkgMdJN/q8=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIK4tqtOPBb0pJKTBR8P5QShvEFTGlBiFd3lduFBaq30W\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_29e0a8a0-2034-46a5-8411-42f534f57218": {
+      "id": "prd_29e0a8a0-2034-46a5-8411-42f534f57218",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:29.585Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAIdJZGA+5KZp0oUAUYWLXRopErwV7Ujv9b0jUHmP5+/o=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIN2Ic9lVr28VclxtF8E89fj67VsGFSJiOTmR6CEqNa6X\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_2f8f6787-bd78-49af-8c5f-05e2c53c0001": {
+      "id": "prd_2f8f6787-bd78-49af-8c5f-05e2c53c0001",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:30.431Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAIXAOU7L8gs99YsXVtDRE553++XjQ/S/xohSaJQRBTjw=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIFkIrxhNvGdSRegcdFFfdJ3S/F0zzKmIMCTvYg0t3SGz\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_01362040-e4b4-43ec-b566-2af9bc712592": {
+      "id": "prd_01362040-e4b4-43ec-b566-2af9bc712592",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:31.076Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAvVSKBg1KcN2rRPx4aEhuDqWUZq3HyzPTNNxwYL0J5XM=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIKZ7QY04SeesWg+dDQ/mPhRs01K/Ala44LdxCItBy9Fr\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_9a46cfb7-edd7-4807-9bcb-97f1d65bb5ba": {
+      "id": "prd_9a46cfb7-edd7-4807-9bcb-97f1d65bb5ba",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:31.258Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEANvFca7SCuedb8zRleQlG/HYKcgMN2CNi6pvVkwpHsLI=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILujwbZtwpwf2dPXYSIVUTE/qnbbpHr7bv2/qPTA/Lbn\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_146fb487-83bd-41da-b119-cf5ba2a70bfa": {
+      "id": "prd_146fb487-83bd-41da-b119-cf5ba2a70bfa",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:31.418Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAZi9Zhfmq5eYXAqj8BSl7fOrUCsgAH8qDeXm5i/F5r0c=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIF5dCrMzEcktU3Ajc0oVj1H1xgKCuomRGH6saQ0qL5IE\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_8060ab79-cbe0-4416-9730-94f07ab04fc5": {
+      "id": "prd_8060ab79-cbe0-4416-9730-94f07ab04fc5",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:31.590Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAMbNyMz3Pdg75hUiiGbGkaFS3ZsgM5GW03gl/OuYYr64=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEILq+soNUAX/KCnFXm9IfF4sOMVzV/NDtDcezy8cwnvbG\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_8e7b3c00-f4a5-4824-8bf0-755a59f71ba7": {
+      "id": "prd_8e7b3c00-f4a5-4824-8bf0-755a59f71ba7",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:32.028Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAYfPIFzasyMFghi8VDCRY7ySn+AxmcIblYYl4R1hhds8=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIK/O7uGUWfx8At+iluw3qiLkod8B+mjXLHN87B6En2z2\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_cce0548f-e46a-4df0-a182-47a827871b2c": {
+      "id": "prd_cce0548f-e46a-4df0-a182-47a827871b2c",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:32.885Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAYjhdWY7DatH0ohGdujaat6lytYK6WugBRuY/NjxdwqY=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEICtFnwfCzj0AWdapPRpc4oabO3KcuogNT8e27oIzOSBo\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_d822fa60-a1d2-4bb4-9977-61d60d2f0195": {
+      "id": "prd_d822fa60-a1d2-4bb4-9977-61d60d2f0195",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:33.089Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA0NTQ5tRDXIX2tFm1QEb6KoYjQ62sGqwebJ7MJ1ugSRk=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIKYAe1hQB+sMgZXsWEVr4w+ygn+JMg1ahqB0sCsLULDk\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_7fd8acab-a0fc-4cc2-accc-b36fc80de2d1": {
+      "id": "prd_7fd8acab-a0fc-4cc2-accc-b36fc80de2d1",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:33.295Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAdmYp12jTjk5NS4e1P9BInXX6DDjg0t+cD/D+8K66gZU=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIHdPTqnKgFNnaV5k/GqfaTe1WnnkIv2PDmBzmmYgeWMY\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_f0788c1a-16b4-436d-a5db-bd5caf250c56": {
+      "id": "prd_f0788c1a-16b4-436d-a5db-bd5caf250c56",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:33.494Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAun81ytYqljBC/zjnn4aWK5X69mRvpHOzQlwcf9o7dDI=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIBwPjWj2+AMgx308zNFktXATQMkPCsgjyqO++6jQwF+B\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_91e975d1-d6a2-44f1-bfe5-17a8ce23bd1a": {
+      "id": "prd_91e975d1-d6a2-44f1-bfe5-17a8ce23bd1a",
+      "name": "gnoman2.0",
+      "created_at": "2026-03-18T23:29:33.805Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAjU6nDPoWKPIoc/PN5ENFunuBcWz/u3ZYUvtHLB7C6x8=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIDgjhbqZWzCyltNAbC6+hlm/mS2WTOUNw80bZp9d6wMr\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 2,
+        "max_seats": null,
+        "offline_grace_days": 999,
+        "check_in_interval_hours": 2400,
+        "trial_length_days": 14,
+        "features": {
+          "pro": true
+        },
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414": {
+      "id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "name": "Setup Smoke Test",
+      "created_at": "2026-03-18T23:31:50.670Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAXZcWWSzXpjSlXXus+jmfbzGSbxw+/mIMpL8DxGSkuBE=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIA60OTqGevV9fw+wgjjEvseq5NLPN73CdjmfK0bQfIdb\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 1,
+        "max_seats": null,
+        "offline_grace_days": 7,
+        "check_in_interval_hours": 24,
+        "trial_length_days": 14,
+        "features": {},
+        "privacy_mode": "fingerprint"
+      }
+    },
+    "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8": {
+      "id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "name": "Setup Smoke Test",
+      "created_at": "2026-03-18T23:32:11.679Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAomHV494hGSify3/KIGSeHxSyfA+A8Jz3iZlDOUW4KUM=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIOjSpoYBo1UP+k2m8+0FQWuxZXNJgzRfNxCFeVD77Zus\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 1,
+        "max_seats": null,
+        "offline_grace_days": 7,
+        "check_in_interval_hours": 24,
+        "trial_length_days": 14,
+        "features": {},
+        "privacy_mode": "fingerprint"
+      }
     }
   },
   "licenses": {
@@ -30,6 +400,58 @@
       "metadata": {},
       "customer": null,
       "created_at": "2026-03-18T18:38:11.514Z"
+    },
+    "PRD_FB40-9EA8A-981B7-C9E2D-1F30F": {
+      "id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
+      "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "license_key": "PRD_FB40-9EA8A-981B7-C9E2D-1F30F",
+      "type": "subscription",
+      "expires_at": "2031-01-01T00:00:00.000Z",
+      "max_devices": null,
+      "max_seats": null,
+      "status": "revoked",
+      "metadata": {},
+      "customer": null,
+      "created_at": "2026-03-18T23:20:19.932Z"
+    },
+    "PRD_548F-0B94E-773C0-83179-86B55": {
+      "id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+      "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+      "license_key": "PRD_548F-0B94E-773C0-83179-86B55",
+      "type": "subscription",
+      "expires_at": "2031-01-01T00:00:00.000Z",
+      "max_devices": null,
+      "max_seats": null,
+      "status": "revoked",
+      "metadata": {},
+      "customer": null,
+      "created_at": "2026-03-18T23:20:36.938Z"
+    },
+    "PRD_4F3D-460E2-BD57B-58ACB-9E5EF": {
+      "id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+      "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "license_key": "PRD_4F3D-460E2-BD57B-58ACB-9E5EF",
+      "type": "subscription",
+      "expires_at": "2031-01-01T00:00:00.000Z",
+      "max_devices": null,
+      "max_seats": null,
+      "status": "revoked",
+      "metadata": {},
+      "customer": null,
+      "created_at": "2026-03-18T23:31:50.748Z"
+    },
+    "PRD_DC29-B71DE-5C6F7-7BC65-09D19": {
+      "id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+      "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "license_key": "PRD_DC29-B71DE-5C6F7-7BC65-09D19",
+      "type": "subscription",
+      "expires_at": "2031-01-01T00:00:00.000Z",
+      "max_devices": null,
+      "max_seats": null,
+      "status": "revoked",
+      "metadata": {},
+      "customer": null,
+      "created_at": "2026-03-18T23:32:11.760Z"
     }
   },
   "activations": {
@@ -42,53 +464,166 @@
       "status": "active",
       "ip_last": "::1",
       "app_version_last": "1.0.0"
+    },
+    "e5a6a597-d85d-4155-b56b-7f48ba1b579f": {
+      "id": "e5a6a597-d85d-4155-b56b-7f48ba1b579f",
+      "license_id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
+      "device_fingerprint_hash": "4a4c5cc277ac88302dad463d9f6d271a955496899d61e62c8df9d8cfca358825",
+      "first_seen_at": "2026-03-18T23:20:20.008Z",
+      "last_seen_at": "2026-03-18T23:20:20.008Z",
+      "status": "active",
+      "ip_last": "::1",
+      "app_version_last": "1.0.0"
+    },
+    "3cd792d9-f547-4611-9bd2-3ed7f0d00079": {
+      "id": "3cd792d9-f547-4611-9bd2-3ed7f0d00079",
+      "license_id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+      "device_fingerprint_hash": "4a4c5cc277ac88302dad463d9f6d271a955496899d61e62c8df9d8cfca358825",
+      "first_seen_at": "2026-03-18T23:20:37.013Z",
+      "last_seen_at": "2026-03-18T23:20:37.013Z",
+      "status": "active",
+      "ip_last": "::1",
+      "app_version_last": "1.0.0"
+    },
+    "8b7195a1-7334-4ae7-b9a1-74d6123becc3": {
+      "id": "8b7195a1-7334-4ae7-b9a1-74d6123becc3",
+      "license_id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+      "device_fingerprint_hash": "4a4c5cc277ac88302dad463d9f6d271a955496899d61e62c8df9d8cfca358825",
+      "first_seen_at": "2026-03-18T23:31:50.822Z",
+      "last_seen_at": "2026-03-18T23:31:50.822Z",
+      "status": "active",
+      "ip_last": "::1",
+      "app_version_last": "1.0.0"
+    },
+    "4f71657e-6d90-42f8-b4bb-8e9de5033db8": {
+      "id": "4f71657e-6d90-42f8-b4bb-8e9de5033db8",
+      "license_id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+      "device_fingerprint_hash": "4a4c5cc277ac88302dad463d9f6d271a955496899d61e62c8df9d8cfca358825",
+      "first_seen_at": "2026-03-18T23:32:11.837Z",
+      "last_seen_at": "2026-03-18T23:32:11.837Z",
+      "status": "active",
+      "ip_last": "::1",
+      "app_version_last": "1.0.0"
     }
   },
   "audit": [
     {
-      "id": "7f0b9d07-a6f9-49a6-a825-7ec6bfdda06b",
-      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "id": "c9889e64-561f-4e56-ba2d-75c56e684a9c",
+      "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+      "license_id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+      "event_type": "validate",
+      "payload": {
+        "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+        "license_key": "PRD_548F-0B94E-773C0-83179-86B55",
+        "app_version": "1.0.0",
+        "valid": false,
+        "status": "revoked"
+      },
+      "created_at": "2026-03-18T23:20:37.097Z"
+    },
+    {
+      "id": "cebf1240-3954-4c4d-8f39-11b9a06ef5fd",
+      "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+      "license_id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+      "event_type": "license_revoked",
+      "payload": {
+        "license_id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c"
+      },
+      "created_at": "2026-03-18T23:20:37.075Z"
+    },
+    {
+      "id": "43e432e5-5075-47ba-9ecd-5e0ebe88ac0e",
+      "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+      "license_id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+      "event_type": "activate",
+      "payload": {
+        "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+        "license_key": "PRD_548F-0B94E-773C0-83179-86B55",
+        "activation_id": "3cd792d9-f547-4611-9bd2-3ed7f0d00079"
+      },
+      "created_at": "2026-03-18T23:20:37.013Z"
+    },
+    {
+      "id": "b6948ebf-6d6c-4b94-aecd-b41f943719df",
+      "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+      "license_id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+      "event_type": "license_created",
+      "payload": {
+        "id": "lic_4bf0f8d1-507a-415d-a4ae-0badb024c49c",
+        "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
+        "type": "subscription"
+      },
+      "created_at": "2026-03-18T23:20:36.938Z"
+    },
+    {
+      "id": "edf61e30-d1d2-4759-adce-a69ed2b42fed",
+      "product_id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
       "license_id": null,
       "event_type": "product_created",
       "payload": {
-        "id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "id": "prd_548f56ef-27d8-422d-969c-080e7f64d1fe",
         "name": "Setup Smoke Test"
       },
-      "created_at": "2026-03-18T18:38:11.433Z"
+      "created_at": "2026-03-18T23:20:36.862Z"
     },
     {
-      "id": "bb6ceeeb-a95f-42c4-a7ed-dd78ced5d1bd",
-      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
-      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
-      "event_type": "license_created",
+      "id": "35158b6b-0a99-49fe-998d-d1ef785c4fa5",
+      "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "license_id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
+      "event_type": "validate",
       "payload": {
-        "id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
-        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
-        "type": "subscription"
+        "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+        "license_key": "PRD_FB40-9EA8A-981B7-C9E2D-1F30F",
+        "app_version": "1.0.0",
+        "valid": false,
+        "status": "revoked"
       },
-      "created_at": "2026-03-18T18:38:11.515Z"
+      "created_at": "2026-03-18T23:20:20.091Z"
     },
     {
-      "id": "f1e60143-62a7-4824-9ff2-7477ddd20a1f",
-      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
-      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
-      "event_type": "activate",
-      "payload": {
-        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
-        "license_key": "PRD_6FCC-8E953-B72AF-CB219-9608C",
-        "activation_id": "73a665a8-778c-4bd7-b058-7f44b81dd717"
-      },
-      "created_at": "2026-03-18T18:38:11.590Z"
-    },
-    {
-      "id": "156fadc0-0a55-4e2a-9468-95400c5b46ae",
-      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
-      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "id": "dcf1e5ab-81d3-4deb-8cb9-ac7f7b90c519",
+      "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "license_id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
       "event_type": "license_revoked",
       "payload": {
-        "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035"
+        "license_id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c"
       },
-      "created_at": "2026-03-18T18:38:11.650Z"
+      "created_at": "2026-03-18T23:20:20.069Z"
+    },
+    {
+      "id": "7a963681-8a6d-4bfa-8690-175bc5840cb4",
+      "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "license_id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
+      "event_type": "activate",
+      "payload": {
+        "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+        "license_key": "PRD_FB40-9EA8A-981B7-C9E2D-1F30F",
+        "activation_id": "e5a6a597-d85d-4155-b56b-7f48ba1b579f"
+      },
+      "created_at": "2026-03-18T23:20:20.009Z"
+    },
+    {
+      "id": "ec629611-187e-4c2e-8194-e595fc27b7aa",
+      "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "license_id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
+      "event_type": "license_created",
+      "payload": {
+        "id": "lic_0e8fa786-1437-46c3-8329-658b5cdad17c",
+        "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+        "type": "subscription"
+      },
+      "created_at": "2026-03-18T23:20:19.932Z"
+    },
+    {
+      "id": "6c8d904c-9f90-4cf7-ad25-a3146847a4bf",
+      "product_id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_fb40d09c-4dfb-4d80-8b94-d9aa66a4f485",
+        "name": "Setup Smoke Test"
+      },
+      "created_at": "2026-03-18T23:20:19.851Z"
     },
     {
       "id": "f456a00d-2b84-43f5-b471-3bd928ac98f5",
@@ -103,6 +638,356 @@
         "status": "revoked"
       },
       "created_at": "2026-03-18T18:38:11.669Z"
+    },
+    {
+      "id": "156fadc0-0a55-4e2a-9468-95400c5b46ae",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "license_revoked",
+      "payload": {
+        "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035"
+      },
+      "created_at": "2026-03-18T18:38:11.650Z"
+    },
+    {
+      "id": "f1e60143-62a7-4824-9ff2-7477ddd20a1f",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "activate",
+      "payload": {
+        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "license_key": "PRD_6FCC-8E953-B72AF-CB219-9608C",
+        "activation_id": "73a665a8-778c-4bd7-b058-7f44b81dd717"
+      },
+      "created_at": "2026-03-18T18:38:11.590Z"
+    },
+    {
+      "id": "bb6ceeeb-a95f-42c4-a7ed-dd78ced5d1bd",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "license_created",
+      "payload": {
+        "id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "type": "subscription"
+      },
+      "created_at": "2026-03-18T18:38:11.515Z"
+    },
+    {
+      "id": "7f0b9d07-a6f9-49a6-a825-7ec6bfdda06b",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "name": "Setup Smoke Test"
+      },
+      "created_at": "2026-03-18T18:38:11.433Z"
+    },
+    {
+      "id": "7abf8bc6-2a44-416f-85a8-db00549c4369",
+      "product_id": "prd_9ae8b0a4-c2b8-42e8-be42-cb948ca41ec6",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_9ae8b0a4-c2b8-42e8-be42-cb948ca41ec6",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:06.272Z"
+    },
+    {
+      "id": "14ff7394-dfd4-4ccc-aab7-c5519172dfdf",
+      "product_id": "prd_95a37ad3-1148-43a1-a5c7-e78755374bb9",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_95a37ad3-1148-43a1-a5c7-e78755374bb9",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:11.439Z"
+    },
+    {
+      "id": "5643f4ea-4054-436c-b132-0099425755ba",
+      "product_id": "prd_d174a8bc-470e-42dc-b0bd-57bae9866238",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_d174a8bc-470e-42dc-b0bd-57bae9866238",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:12.141Z"
+    },
+    {
+      "id": "a7c86867-7fdc-4a0b-9c73-7434b2a6cb3d",
+      "product_id": "prd_952cea45-b8b4-48e8-a85a-6ff9d957cdb1",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_952cea45-b8b4-48e8-a85a-6ff9d957cdb1",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:12.419Z"
+    },
+    {
+      "id": "3c46860b-2ec5-4803-94fe-df2f02e426c5",
+      "product_id": "prd_e1e1df6f-15df-43e1-b2b9-c9c6b28bb7fe",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_e1e1df6f-15df-43e1-b2b9-c9c6b28bb7fe",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:12.628Z"
+    },
+    {
+      "id": "7c462882-644c-4545-9200-fe47b02b7762",
+      "product_id": "prd_29e0a8a0-2034-46a5-8411-42f534f57218",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_29e0a8a0-2034-46a5-8411-42f534f57218",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:29.586Z"
+    },
+    {
+      "id": "be2e3d4f-5bc3-444d-bda8-e8a65df809ff",
+      "product_id": "prd_2f8f6787-bd78-49af-8c5f-05e2c53c0001",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_2f8f6787-bd78-49af-8c5f-05e2c53c0001",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:30.432Z"
+    },
+    {
+      "id": "f435446f-0dc2-4408-ba1d-e059ad48f949",
+      "product_id": "prd_01362040-e4b4-43ec-b566-2af9bc712592",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_01362040-e4b4-43ec-b566-2af9bc712592",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:31.077Z"
+    },
+    {
+      "id": "d5f9ed2d-c766-4adf-8742-046392730636",
+      "product_id": "prd_9a46cfb7-edd7-4807-9bcb-97f1d65bb5ba",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_9a46cfb7-edd7-4807-9bcb-97f1d65bb5ba",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:31.259Z"
+    },
+    {
+      "id": "4f936817-e791-4705-97f4-aeb7c7fb860c",
+      "product_id": "prd_146fb487-83bd-41da-b119-cf5ba2a70bfa",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_146fb487-83bd-41da-b119-cf5ba2a70bfa",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:31.419Z"
+    },
+    {
+      "id": "dcdbf20d-b3ed-4bb3-9042-f92d773ceae3",
+      "product_id": "prd_8060ab79-cbe0-4416-9730-94f07ab04fc5",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_8060ab79-cbe0-4416-9730-94f07ab04fc5",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:31.591Z"
+    },
+    {
+      "id": "4777de96-5fc1-4759-a430-db7c399faea4",
+      "product_id": "prd_8e7b3c00-f4a5-4824-8bf0-755a59f71ba7",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_8e7b3c00-f4a5-4824-8bf0-755a59f71ba7",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:32.029Z"
+    },
+    {
+      "id": "1e81d56e-aba4-4a8b-ac15-bddcbcaeeb90",
+      "product_id": "prd_cce0548f-e46a-4df0-a182-47a827871b2c",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_cce0548f-e46a-4df0-a182-47a827871b2c",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:32.886Z"
+    },
+    {
+      "id": "0eb43b17-24b0-4677-b26f-e01c2b3c7fed",
+      "product_id": "prd_d822fa60-a1d2-4bb4-9977-61d60d2f0195",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_d822fa60-a1d2-4bb4-9977-61d60d2f0195",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:33.090Z"
+    },
+    {
+      "id": "5c01cfbc-3e50-4bc7-9b59-70557404cac5",
+      "product_id": "prd_7fd8acab-a0fc-4cc2-accc-b36fc80de2d1",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_7fd8acab-a0fc-4cc2-accc-b36fc80de2d1",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:33.296Z"
+    },
+    {
+      "id": "2bd694c0-fd15-4449-8e77-57aba66022b4",
+      "product_id": "prd_f0788c1a-16b4-436d-a5db-bd5caf250c56",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_f0788c1a-16b4-436d-a5db-bd5caf250c56",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:33.495Z"
+    },
+    {
+      "id": "63bcacf1-c57b-4ce8-9d97-9b4e8e52c644",
+      "product_id": "prd_91e975d1-d6a2-44f1-bfe5-17a8ce23bd1a",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_91e975d1-d6a2-44f1-bfe5-17a8ce23bd1a",
+        "name": "gnoman2.0"
+      },
+      "created_at": "2026-03-18T23:29:33.806Z"
+    },
+    {
+      "id": "55ef588d-0b2d-4302-903f-d0b5febc209f",
+      "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+        "name": "Setup Smoke Test"
+      },
+      "created_at": "2026-03-18T23:31:50.673Z"
+    },
+    {
+      "id": "43b8cd4a-58e3-4950-b3d2-db1213dc8737",
+      "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "license_id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+      "event_type": "license_created",
+      "payload": {
+        "id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+        "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+        "type": "subscription"
+      },
+      "created_at": "2026-03-18T23:31:50.749Z"
+    },
+    {
+      "id": "588cacc4-c1fa-400a-8885-b309c79d70c4",
+      "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "license_id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+      "event_type": "activate",
+      "payload": {
+        "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+        "license_key": "PRD_4F3D-460E2-BD57B-58ACB-9E5EF",
+        "activation_id": "8b7195a1-7334-4ae7-b9a1-74d6123becc3"
+      },
+      "created_at": "2026-03-18T23:31:50.823Z"
+    },
+    {
+      "id": "3c593d1c-229d-4e1a-af8a-828ceed92806",
+      "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "license_id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+      "event_type": "license_revoked",
+      "payload": {
+        "license_id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84"
+      },
+      "created_at": "2026-03-18T23:31:50.885Z"
+    },
+    {
+      "id": "63a14094-ea1c-4b64-bd64-8ab7c13dc498",
+      "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+      "license_id": "lic_adf6db62-2b60-4caa-813b-c2d080287d84",
+      "event_type": "validate",
+      "payload": {
+        "product_id": "prd_4f3dbe11-73f6-4ebb-9f35-caf9f7cff414",
+        "license_key": "PRD_4F3D-460E2-BD57B-58ACB-9E5EF",
+        "app_version": "1.0.0",
+        "valid": false,
+        "status": "revoked"
+      },
+      "created_at": "2026-03-18T23:31:50.905Z"
+    },
+    {
+      "id": "ca649a06-cb06-430b-86b8-93ee860961fe",
+      "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+        "name": "Setup Smoke Test"
+      },
+      "created_at": "2026-03-18T23:32:11.681Z"
+    },
+    {
+      "id": "f1e34258-4ff8-4813-9e1e-7afb970a84da",
+      "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "license_id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+      "event_type": "license_created",
+      "payload": {
+        "id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+        "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+        "type": "subscription"
+      },
+      "created_at": "2026-03-18T23:32:11.760Z"
+    },
+    {
+      "id": "34d41633-18f9-4a26-abab-3ff98fb2b90e",
+      "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "license_id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+      "event_type": "activate",
+      "payload": {
+        "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+        "license_key": "PRD_DC29-B71DE-5C6F7-7BC65-09D19",
+        "activation_id": "4f71657e-6d90-42f8-b4bb-8e9de5033db8"
+      },
+      "created_at": "2026-03-18T23:32:11.837Z"
+    },
+    {
+      "id": "4ef8e05a-c9df-4830-bf91-d2f640d4fad5",
+      "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "license_id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+      "event_type": "license_revoked",
+      "payload": {
+        "license_id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8"
+      },
+      "created_at": "2026-03-18T23:32:11.897Z"
+    },
+    {
+      "id": "7a94528b-be58-4d4e-bcc8-74e33951f679",
+      "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+      "license_id": "lic_5a4c97fa-6933-4086-92cf-5a8168a817e8",
+      "event_type": "validate",
+      "payload": {
+        "product_id": "prd_dc29d4ea-5c11-4410-b64b-8c28ce3263f8",
+        "license_key": "PRD_DC29-B71DE-5C6F7-7BC65-09D19",
+        "app_version": "1.0.0",
+        "valid": false,
+        "status": "revoked"
+      },
+      "created_at": "2026-03-18T23:32:11.916Z"
     }
   ],
   "lockouts": {}

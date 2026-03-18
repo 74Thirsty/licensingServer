@@ -94,8 +94,27 @@ test('licensing flow', async (t) => {
   }).then((r) => r.json());
   assert.equal(token.algorithm, 'Ed25519');
 
+  const deleted = await fetch(`${BASE}/v1/admin/products/${encodeURIComponent(p.id)}`, {
+    method: 'DELETE',
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.equal(deleted.ok, true);
+  assert.equal(deleted.deleted_license_count, 1);
+  assert.equal(deleted.deleted_activation_count, 1);
+
+  const postDeleteProducts = await fetch(`${BASE}/v1/admin/products`, {
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.equal(postDeleteProducts.products.length, 0);
+
+  const postDeleteLicenses = await fetch(`${BASE}/v1/admin/licenses`, {
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.equal(postDeleteLicenses.licenses.length, 0);
+
   const audit = await fetch(`${BASE}/v1/admin/audit`, {
     headers: { authorization: 'Bearer test-admin' },
   }).then((r) => r.json());
   assert.ok(audit.events.some((event) => event.event_type === 'activation_revoked'));
+  assert.ok(audit.events.some((event) => event.event_type === 'product_deleted'));
 });
