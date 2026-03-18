@@ -32,7 +32,6 @@ function nowSec() { return Math.floor(Date.now() / 1000); }
 function hashDevice(raw) { return crypto.createHash('sha256').update(`${DEVICE_SALT}:${raw}`).digest('hex'); }
 function readBody(req) { return new Promise((resolve) => { let d=''; req.on('data',(c)=>d+=c); req.on('end',()=>{try{resolve(d?JSON.parse(d):{});}catch{resolve({});}}); }); }
 function authOk(req) { const a=req.headers.authorization||''; return a.startsWith('Bearer ') && a.slice(7)===ADMIN_TOKEN; }
-function sanitizeProduct(product) { const { signing_private_key_pem, ...safe } = product; return safe; }
 function listActivationsForLicense(licenseId) { return Object.values(state.activations).filter((activation) => activation.license_id === licenseId); }
 function activeActivationCount(licenseId) { return listActivationsForLicense(licenseId).filter((activation) => activation.status === 'active').length; }
 function licenseSummary(license) {

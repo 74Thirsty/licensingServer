@@ -2,13 +2,13 @@
 
 ## Stack
 - Node.js 20+
-- Express REST API
-- JSON state backend (portable baseline; swap with Postgres/Redis adapters for production HA)
+- HTTP API served by `src/server.js`
+- JSON state backend (`data.json` by default)
 
 ## Environment
 ```bash
-export ADMIN_TOKEN=466a8293caf26ce94d3d4339468d810a86ad8ddc19296c6687385379034a6d4a
-export DEVICE_SALT=466a8293caf26ce94d3d4339468d810a86ad8ddc19296c6687385379034a6d4a
+export ADMIN_TOKEN=$(openssl rand -hex 32)
+export DEVICE_SALT=$(openssl rand -hex 32)
 export PORT=4000
 ```
 
@@ -23,18 +23,20 @@ npm start
 2. Create license (`POST /v1/admin/licenses`).
 3. Activate device (`POST /v1/activate`).
 4. Validate on launch (`POST /v1/validate`).
-5. (Optional) issue offline token (`POST /v1/offline-token`).
+5. Optional: issue offline token (`POST /v1/offline-token`).
 
 ## cURL examples
 ```bash
 curl -X POST http://localhost:4000/v1/admin/products \
-  -H "Authorization: Bearer $ADMIN_TOKEN" -H 'content-type: application/json' \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H 'content-type: application/json' \
   -d '{"name":"DesktopPro","policy_defaults":{"max_devices":3,"offline_grace_days":14,"check_in_interval_hours":12,"features":{"tier":"pro"}}}'
 ```
 
 ```bash
 curl -X POST http://localhost:4000/v1/admin/licenses \
-  -H "Authorization: Bearer $ADMIN_TOKEN" -H 'content-type: application/json' \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H 'content-type: application/json' \
   -d '{"product_id":"<PRODUCT_ID>","type":"subscription","expires_at":"2031-01-01T00:00:00.000Z","metadata":{"features":{"tier":"pro"}},"customer":{"email":"dev@example.com"}}'
 ```
 
@@ -49,8 +51,8 @@ curl -X POST http://localhost:4000/v1/validate -H 'content-type: application/jso
 ```
 
 ## Production notes
-- Put API behind TLS-only ingress.
-- Replace bearer admin token with OIDC or mTLS-signed admin tokens.
-- Back state with Postgres, and move rate counters/locks to Redis.
-- Rotate per-product Ed25519 keys and retain old public keys during migration windows.
-- Export + archive `/v1/admin/export/audit.csv` regularly.
+- Put the API behind TLS-only ingress.
+- Replace bearer admin auth with OIDC or mTLS if you need operator identity and revocation.
+- Move persisted state to Postgres and centralized rate-limit counters/lockouts to Redis.
+- Rotate per-product Ed25519 keys with public-key overlap during migration windows.
+- Export and archive `/v1/admin/export/audit.csv` regularly.

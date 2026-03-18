@@ -8,36 +8,38 @@ npm install
 npm start
 ```
 
+Default local runtime values:
+- `PORT=4000`
+- `ADMIN_TOKEN=dev-admin-token-change-me`
+- `DEVICE_SALT=dev-device-salt-change-me`
+- `DATA_FILE=./data.json`
+
+Endpoints:
 - API: `http://localhost:4000`
-- Admin UI: `http://localhost:4000/admin` (browser dashboard for products, licenses, devices, offline tokens, and audit events)
+- Admin UI: `http://localhost:4000/admin`
 - Docs: `http://localhost:4000/docs/README.md`
 - OpenAPI: `http://localhost:4000/openapi.json`
 
 Full setup guide: [SETUP.md](./SETUP.md)
 
-Simple license issuing/validation service.
+## Environment
+Use strong values outside local dev.
 
-## Key requirements
+- `PORT`: listen port.
+- `ADMIN_TOKEN`: bearer token for `/v1/admin/*`.
+- `DEVICE_SALT`: salt applied before hashing `device_fingerprint`.
+- `DATA_FILE`: optional path for persisted JSON state.
 
-This server now signs licenses with an RSA private key and verifies them with the matching RSA public key.
-Both PEM files are required at boot.
-
-- `LICENSE_PRIVATE_KEY_PATH` (default: `./keys/license-private.pem`)
-- `LICENSE_PUBLIC_KEY_PATH` (default: `./keys/license-public.pem`)
-
-If either key is missing/invalid, the server exits with a fatal configuration error.
-
-## Generate test keys
+Example:
 
 ```bash
-mkdir -p keys
-openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out keys/license-private.pem
-openssl rsa -pubout -in keys/license-private.pem -out keys/license-public.pem
+export ADMIN_TOKEN=$(openssl rand -hex 32)
+export DEVICE_SALT=$(openssl rand -hex 32)
+export PORT=4000
+npm start
 ```
 
-
 ## Complete setup walkthrough
-
 Run the setup wizard from repo root:
 
 ```bash
@@ -47,9 +49,9 @@ Run the setup wizard from repo root:
 What it does:
 - Verifies required tooling (`node`, `npm`, `curl`).
 - Creates `package.json` if missing.
-- Installs `express`.
-- Creates `.env` with `PORT` and a generated `LICENSE_SECRET` if missing.
-- Optionally runs a full API smoke test (`create -> validate -> revoke -> validate`).
+- Installs npm dependencies.
+- Creates `.env` with `PORT`, `ADMIN_TOKEN`, and `DEVICE_SALT` if missing.
+- Optionally runs a full API smoke test against the current `/v1/*` surface.
 
 After setup:
 
