@@ -95,6 +95,34 @@ function serveStatic(res, filepath, contentType='text/plain') {
   res.end(fs.readFileSync(filepath));
 }
 
+function sanitizeProduct(product) {
+  if (!product) return null;
+  const { signing_private_key_pem, ...safe } = product;
+  return safe;
+}
+
+function activeDeviceCount(licenseId) {
+  return Object.values(state.activations).filter((activation) => activation.license_id === licenseId && activation.status === 'active').length;
+}
+
+function activationWithLicense(activation) {
+  const license = Object.values(state.licenses).find((entry) => entry.id === activation.license_id);
+  return {
+    ...activation,
+    license_key: license?.license_key || null,
+    product_id: license?.product_id || null,
+  };
+}
+
+function serializeLicense(license) {
+  const product = state.products[license.product_id];
+  return {
+    ...license,
+    active_devices: activeDeviceCount(license.id),
+    policy: product ? policyForProduct(product, license) : null,
+  };
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   if (req.method === 'GET' && url.pathname === '/healthz') return json(res, 200, { ok: true });
@@ -172,6 +200,31 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname.startsWith('/v1/admin/')) {
     if (!authOk(req)) return json(res, 401, { error: 'unauthorized' });
 
+    if (req.method === 'GET' && url.pathname === '/v1/admin/products') {
+      return json(res, 200, { products: Object.values(state.products).map(sanitizeProduct) });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/v1/admin/licenses') {
+      let licenses = Object.values(state.licenses);
+      const product_id = url.searchParams.get('product_id');
+      const status = url.searchParams.get('status');
+      if (product_id) licenses = licenses.filter((license) => license.product_id === product_id);
+      if (status) licenses = licenses.filter((license) => license.status === status);
+      return json(res, 200, { licenses: licenses.map(serializeLicense) });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/v1/admin/activations') {
+      let activations = Object.values(state.activations);
+      const licenseRef = url.searchParams.get('license_key') || url.searchParams.get('license_id');
+      const status = url.searchParams.get('status');
+      if (licenseRef) {
+        const license = Object.values(state.licenses).find((entry) => entry.license_key === licenseRef || entry.id === licenseRef);
+        activations = license ? activations.filter((activation) => activation.license_id === license.id) : [];
+      }
+      if (status) activations = activations.filter((activation) => activation.status === status);
+      return json(res, 200, { activations: activations.map(activationWithLicense) });
+    }
+
     if (req.method === 'POST' && url.pathname === '/v1/admin/products') {
       const body = await readBody(req);
       if (!body.name) return json(res, 400, { error: 'name_required' });
@@ -179,8 +232,7 @@ const server = http.createServer(async (req, res) => {
       const kp = crypto.generateKeyPairSync('ed25519');
       const product = { id, name: body.name, created_at: nowIso(), offline_public_key: kp.publicKey.export({format:'pem',type:'spki'}).toString(), signing_private_key_pem: kp.privateKey.export({format:'pem',type:'pkcs8'}).toString(), policy_defaults: { max_devices: body.policy_defaults?.max_devices ?? 1, max_seats: body.policy_defaults?.max_seats ?? null, offline_grace_days: body.policy_defaults?.offline_grace_days ?? 7, check_in_interval_hours: body.policy_defaults?.check_in_interval_hours ?? 24, trial_length_days: body.policy_defaults?.trial_length_days ?? 14, features: body.policy_defaults?.features ?? {}, privacy_mode: body.policy_defaults?.privacy_mode ?? 'fingerprint' } };
       state.products[id] = product; saveState(state); recordAudit('product_created',{id,name:product.name},id,null);
-      const { signing_private_key_pem, ...safe } = product;
-      return json(res, 201, safe);
+      return json(res, 201, sanitizeProduct(product));
     }
 
     if (req.method === 'POST' && url.pathname === '/v1/admin/licenses') {
@@ -202,7 +254,7 @@ const server = http.createServer(async (req, res) => {
         const license = Object.values(state.licenses).find((l)=>l.id===id || l.license_key===id);
         if (!license) return json(res, 404, { error: 'license_not_found' });
         const activations = Object.values(state.activations).filter((a)=>a.license_id===license.id);
-        return json(res, 200, { ...license, activations });
+        return json(res, 200, { ...serializeLicense(license), activations: activations.map(activationWithLicense) });
       }
     }
 
@@ -221,6 +273,18 @@ const server = http.createServer(async (req, res) => {
       for (const a of Object.values(state.activations)) if (a.license_id===license.id) a.status='revoked';
       saveState(state); recordAudit('activations_reset',{license_id:license.id},license.product_id,license.id);
       return json(res, 200, { ok:true });
+    }
+
+    if (req.method === 'POST' && /\/v1\/admin\/activations\/[^/]+\/revoke$/.test(url.pathname)) {
+      const id = decodeURIComponent(url.pathname.split('/')[4]);
+      const activation = state.activations[id];
+      if (!activation) return json(res, 404, { error: 'activation_not_found' });
+      const license = Object.values(state.licenses).find((entry) => entry.id === activation.license_id);
+      activation.status = 'revoked';
+      activation.last_seen_at = nowIso();
+      saveState(state);
+      recordAudit('activation_revoked', { activation_id: activation.id }, license?.product_id || null, license?.id || null);
+      return json(res, 200, { ok: true, activation: activationWithLicense(activation) });
     }
 
     if (req.method === 'GET' && url.pathname === '/v1/admin/audit') {

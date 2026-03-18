@@ -1,34 +1,625 @@
 <!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Licensing Admin</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Licensing Admin</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: #121a2b;
+      --panel-2: #17233a;
+      --border: #263556;
+      --text: #ebf2ff;
+      --muted: #9fb2d4;
+      --accent: #4da3ff;
+      --danger: #ff6b6b;
+      --success: #3ddc97;
+      --warning: #ffbf47;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #09101d 0%, #10182a 100%);
+      color: var(--text);
+    }
+    header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      background: rgba(9, 16, 29, 0.94);
+      z-index: 10;
+    }
+    h1, h2, h3 { margin: 0; }
+    main {
+      padding: 24px;
+      display: grid;
+      gap: 24px;
+    }
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+    .panel {
+      background: rgba(18, 26, 43, 0.98);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+    }
+    .panel h2 { margin-bottom: 16px; }
+    .stack { display: grid; gap: 12px; }
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    input, textarea, select, button {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 11px 12px;
+      font: inherit;
+    }
+    input, textarea, select {
+      color: var(--text);
+      background: var(--panel-2);
+      width: 100%;
+    }
+    textarea { min-height: 88px; resize: vertical; }
+    button {
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      font-weight: 700;
+      border: 0;
+    }
+    button.secondary { background: #31456d; }
+    button.danger { background: var(--danger); }
+    button:disabled { opacity: 0.6; cursor: wait; }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .muted { color: var(--muted); }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      background: #13233d;
+    }
+    .badge.active { color: var(--success); }
+    .badge.revoked, .badge.expired, .badge.suspended { color: var(--danger); }
+    .table-wrap { overflow: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+    th { color: var(--muted); font-size: 13px; }
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+    pre {
+      background: #0b1221;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .summary {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    .metric {
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #0d1628;
+    }
+    .metric .value {
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .message {
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+    .message.ok { background: rgba(61, 220, 151, 0.12); color: var(--success); border: 1px solid rgba(61, 220, 151, 0.2); }
+    .message.err { background: rgba(255, 107, 107, 0.12); color: #ff9b9b; border: 1px solid rgba(255, 107, 107, 0.2); }
+    .split {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.2fr 1fr;
+    }
+    @media (max-width: 1080px) {
+      .split { grid-template-columns: 1fr; }
+      table { min-width: 0; }
+    }
+  </style>
+</head>
 <body>
-  <h1>Licensing Admin</h1>
-  <p>Set bearer token and call admin endpoints.</p>
-  <input id="token" placeholder="admin token" style="width:320px" />
-  <h3>Create Product</h3>
-  <input id="pname" placeholder="product name" />
-  <button onclick="createProduct()">Create</button>
-  <h3>Create License</h3>
-  <input id="pid" placeholder="product id" style="width:320px" />
-  <button onclick="createLicense()">Create Trial License</button>
-  <pre id="out"></pre>
-<script>
-async function api(path, body, method='POST') {
-  const token = document.getElementById('token').value;
-  const r = await fetch(path, {method, headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body: body ? JSON.stringify(body) : undefined});
-  const t = await r.text();
-  try { return JSON.parse(t) } catch { return t }
-}
-async function createProduct(){
-  const name = document.getElementById('pname').value;
-  const data = await api('/v1/admin/products',{name, policy_defaults:{max_devices:2,offline_grace_days:7,check_in_interval_hours:24,features:{pro:true}}});
-  document.getElementById('out').textContent = JSON.stringify(data,null,2);
-}
-async function createLicense(){
-  const product_id = document.getElementById('pid').value;
-  const expires_at = new Date(Date.now()+14*86400000).toISOString();
-  const data = await api('/v1/admin/licenses',{product_id,type:'trial',expires_at,metadata:{features:{pro:true}}});
-  document.getElementById('out').textContent = JSON.stringify(data,null,2);
-}
-</script>
-</body></html>
+  <header>
+    <div>
+      <h1>Universal Licensing Admin</h1>
+      <div class="muted">Products, licenses, activations, audit events, offline token issuance.</div>
+    </div>
+    <div class="toolbar">
+      <input id="adminToken" type="password" placeholder="Admin bearer token" style="min-width: 280px;" />
+      <button id="saveToken" class="secondary">Save Token</button>
+      <button id="refreshAll">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary" id="summary"></section>
+    <section id="message"></section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Create Product</h2>
+        <form id="productForm" class="stack">
+          <label>Name<input name="name" required placeholder="Desktop Pro" /></label>
+          <label>Max devices<input name="max_devices" type="number" min="1" value="1" /></label>
+          <label>Offline grace days<input name="offline_grace_days" type="number" min="1" value="7" /></label>
+          <label>Check-in interval hours<input name="check_in_interval_hours" type="number" min="1" value="24" /></label>
+          <label>Features JSON<textarea name="features" placeholder='{"pro":true}'>{}</textarea></label>
+          <button type="submit">Create Product</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h2>Create License</h2>
+        <form id="licenseForm" class="stack">
+          <label>Product<select name="product_id" required></select></label>
+          <label>Type<select name="type"><option value="subscription">subscription</option><option value="perpetual">perpetual</option></select></label>
+          <label>Expiration (ISO8601)<input name="expires_at" placeholder="2030-01-01T00:00:00.000Z" /></label>
+          <label>Max devices override<input name="max_devices" type="number" min="1" placeholder="optional" /></label>
+          <label>Customer JSON<textarea name="customer" placeholder='{"email":"ops@example.com"}'>{}</textarea></label>
+          <label>Metadata JSON<textarea name="metadata" placeholder='{"features":{"tier":"enterprise"}}'>{}</textarea></label>
+          <button type="submit">Create License</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <h2>Issue Offline Token</h2>
+        <form id="tokenForm" class="stack">
+          <label>Product<select name="product_id" required></select></label>
+          <label>License<select name="license_key" required></select></label>
+          <label>Device fingerprint<input name="device_fingerprint" required placeholder="host-01" /></label>
+          <label>Duration seconds<input name="requested_duration_seconds" type="number" min="60" placeholder="optional" /></label>
+          <button type="submit">Issue Token</button>
+        </form>
+        <pre id="tokenOutput">No token issued yet.</pre>
+      </article>
+    </section>
+
+    <section class="split">
+      <article class="panel">
+        <div class="toolbar" style="justify-content: space-between; margin-bottom: 16px;">
+          <h2>Licenses</h2>
+          <div class="toolbar">
+            <select id="licenseProductFilter"></select>
+            <select id="licenseStatusFilter">
+              <option value="">All statuses</option>
+              <option value="active">active</option>
+              <option value="revoked">revoked</option>
+              <option value="suspended">suspended</option>
+              <option value="expired">expired</option>
+            </select>
+            <button id="applyLicenseFilters" class="secondary" type="button">Apply</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>License</th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Devices</th>
+                <th>Expires</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="licensesTable"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Audit Log</h2>
+        <div class="toolbar" style="margin-bottom: 16px;">
+          <select id="auditProductFilter"></select>
+          <button id="refreshAudit" class="secondary" type="button">Refresh Audit</button>
+        </div>
+        <div id="auditEvents" class="stack"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar" style="justify-content: space-between; margin-bottom: 16px;">
+        <h2>Activations</h2>
+        <select id="activationLicenseFilter"></select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>License</th>
+              <th>Fingerprint Hash</th>
+              <th>Status</th>
+              <th>First Seen</th>
+              <th>Last Seen</th>
+              <th>App Version</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="activationsTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      token: sessionStorage.getItem('adminToken') || '',
+      products: [],
+      licenses: [],
+      activations: [],
+      audit: [],
+    };
+
+    const refs = {
+      adminToken: document.getElementById('adminToken'),
+      summary: document.getElementById('summary'),
+      message: document.getElementById('message'),
+      productForm: document.getElementById('productForm'),
+      licenseForm: document.getElementById('licenseForm'),
+      tokenForm: document.getElementById('tokenForm'),
+      tokenOutput: document.getElementById('tokenOutput'),
+      licensesTable: document.getElementById('licensesTable'),
+      activationsTable: document.getElementById('activationsTable'),
+      auditEvents: document.getElementById('auditEvents'),
+      refreshAll: document.getElementById('refreshAll'),
+      saveToken: document.getElementById('saveToken'),
+      applyLicenseFilters: document.getElementById('applyLicenseFilters'),
+      refreshAudit: document.getElementById('refreshAudit'),
+      licenseProductFilter: document.getElementById('licenseProductFilter'),
+      licenseStatusFilter: document.getElementById('licenseStatusFilter'),
+      auditProductFilter: document.getElementById('auditProductFilter'),
+      activationLicenseFilter: document.getElementById('activationLicenseFilter'),
+    };
+
+    refs.adminToken.value = state.token;
+
+    function setMessage(text, ok = true) {
+      refs.message.innerHTML = text ? `<div class="message ${ok ? 'ok' : 'err'}">${text}</div>` : '';
+    }
+
+    function toJsonOrNull(value, fallback = {}) {
+      if (!value || !value.trim()) return fallback;
+      return JSON.parse(value);
+    }
+
+    function adminHeaders() {
+      return {
+        authorization: `Bearer ${state.token}`,
+        'content-type': 'application/json',
+      };
+    }
+
+    async function api(path, options = {}, admin = true) {
+      const headers = { ...(options.headers || {}) };
+      if (admin) Object.assign(headers, adminHeaders());
+      const res = await fetch(path, { ...options, headers });
+      const text = await res.text();
+      const body = text ? JSON.parse(text) : {};
+      if (!res.ok) {
+        throw new Error(body.error || `${res.status} ${res.statusText}`);
+      }
+      return body;
+    }
+
+    function optionMarkup(items, valueKey, labelKey, includeAll = false, allLabel = 'All') {
+      const base = includeAll ? `<option value="">${allLabel}</option>` : '';
+      return base + items.map((item) => `<option value="${item[valueKey]}">${item[labelKey]}</option>`).join('');
+    }
+
+    function productName(productId) {
+      return state.products.find((product) => product.id === productId)?.name || productId;
+    }
+
+    function renderSummary() {
+      const activeLicenses = state.licenses.filter((license) => license.status === 'active').length;
+      const activeActivations = state.activations.filter((activation) => activation.status === 'active').length;
+      refs.summary.innerHTML = [
+        ['Products', state.products.length],
+        ['Licenses', state.licenses.length],
+        ['Active licenses', activeLicenses],
+        ['Active devices', activeActivations],
+        ['Audit events', state.audit.length],
+      ].map(([label, value]) => `<div class="metric"><div class="muted">${label}</div><div class="value">${value}</div></div>`).join('');
+    }
+
+    function badge(status) {
+      return `<span class="badge ${status}">${status}</span>`;
+    }
+
+    function renderLicenses() {
+      refs.licensesTable.innerHTML = state.licenses.map((license) => `
+        <tr>
+          <td><div><strong>${license.license_key}</strong></div><div class="muted"><code>${license.id}</code></div></td>
+          <td>${productName(license.product_id)}</td>
+          <td>${badge(license.status)}</td>
+          <td>${license.type}</td>
+          <td>${license.active_devices}/${license.max_devices ?? license.policy?.max_devices ?? '-'}</td>
+          <td>${license.expires_at || '—'}</td>
+          <td>
+            <div class="toolbar">
+              <button type="button" class="secondary" data-action="inspect-license" data-license="${license.license_key}">Inspect</button>
+              ${license.status === 'active' ? `<button type="button" class="danger" data-action="revoke-license" data-license="${license.license_key}">Revoke</button>` : ''}
+            </div>
+          </td>
+        </tr>
+      `).join('') || '<tr><td colspan="7" class="muted">No licenses.</td></tr>';
+    }
+
+    function renderActivations() {
+      refs.activationsTable.innerHTML = state.activations.map((activation) => `
+        <tr>
+          <td><code>${activation.id}</code></td>
+          <td>${activation.license_key || activation.license_id}</td>
+          <td><code>${activation.device_fingerprint_hash}</code></td>
+          <td>${badge(activation.status)}</td>
+          <td>${activation.first_seen_at || '—'}</td>
+          <td>${activation.last_seen_at || '—'}</td>
+          <td>${activation.app_version_last || '—'}</td>
+          <td>${activation.status === 'active' ? `<button class="danger" type="button" data-action="revoke-activation" data-activation="${activation.id}">Revoke</button>` : '—'}</td>
+        </tr>
+      `).join('') || '<tr><td colspan="8" class="muted">No activations.</td></tr>';
+    }
+
+    function renderAudit() {
+      refs.auditEvents.innerHTML = state.audit.slice(0, 25).map((event) => `
+        <div class="metric">
+          <div class="toolbar" style="justify-content: space-between; margin-bottom: 8px;">
+            <strong>${event.event_type}</strong>
+            <span class="muted">${event.created_at}</span>
+          </div>
+          <div class="muted">${event.product_id || '—'} · ${event.license_id || '—'}</div>
+          <pre>${JSON.stringify(event.payload, null, 2)}</pre>
+        </div>
+      `).join('') || '<div class="muted">No audit events.</div>';
+    }
+
+    function syncSelectors() {
+      const productOptions = optionMarkup(state.products, 'id', 'name');
+      refs.licenseForm.product_id.innerHTML = productOptions;
+      refs.tokenForm.product_id.innerHTML = productOptions;
+      refs.licenseProductFilter.innerHTML = optionMarkup(state.products, 'id', 'name', true, 'All products');
+      refs.auditProductFilter.innerHTML = optionMarkup(state.products, 'id', 'name', true, 'All products');
+      refs.activationLicenseFilter.innerHTML = optionMarkup(state.licenses, 'license_key', 'license_key', true, 'All licenses');
+      syncLicenseOptionsForTokenForm();
+    }
+
+    function syncLicenseOptionsForTokenForm() {
+      const selectedProduct = refs.tokenForm.product_id.value;
+      const filtered = state.licenses.filter((license) => !selectedProduct || license.product_id === selectedProduct);
+      refs.tokenForm.license_key.innerHTML = optionMarkup(filtered, 'license_key', 'license_key');
+    }
+
+    function renderAll() {
+      renderSummary();
+      renderLicenses();
+      renderActivations();
+      renderAudit();
+      syncSelectors();
+    }
+
+    async function loadProducts() {
+      const { products } = await api('/v1/admin/products');
+      state.products = products;
+    }
+
+    async function loadLicenses() {
+      const params = new URLSearchParams();
+      if (refs.licenseProductFilter.value) params.set('product_id', refs.licenseProductFilter.value);
+      if (refs.licenseStatusFilter.value) params.set('status', refs.licenseStatusFilter.value);
+      const query = params.toString();
+      const { licenses } = await api(`/v1/admin/licenses${query ? `?${query}` : ''}`);
+      state.licenses = licenses;
+    }
+
+    async function loadActivations() {
+      const params = new URLSearchParams();
+      if (refs.activationLicenseFilter.value) params.set('license_key', refs.activationLicenseFilter.value);
+      const query = params.toString();
+      const { activations } = await api(`/v1/admin/activations${query ? `?${query}` : ''}`);
+      state.activations = activations;
+    }
+
+    async function loadAudit() {
+      const params = new URLSearchParams();
+      if (refs.auditProductFilter.value) params.set('product_id', refs.auditProductFilter.value);
+      const query = params.toString();
+      const { events } = await api(`/v1/admin/audit${query ? `?${query}` : ''}`);
+      state.audit = events.slice().reverse();
+    }
+
+    async function refresh() {
+      if (!state.token) {
+        setMessage('Set an admin bearer token first.', false);
+        return;
+      }
+      setMessage('Refreshing…', true);
+      try {
+        await loadProducts();
+        await loadLicenses();
+        await loadActivations();
+        await loadAudit();
+        renderAll();
+        setMessage('Dashboard state refreshed.', true);
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    }
+
+    refs.saveToken.addEventListener('click', () => {
+      state.token = refs.adminToken.value.trim();
+      sessionStorage.setItem('adminToken', state.token);
+      setMessage('Token saved in sessionStorage.', true);
+    });
+
+    refs.refreshAll.addEventListener('click', refresh);
+    refs.applyLicenseFilters.addEventListener('click', async () => {
+      try {
+        await loadLicenses();
+        renderLicenses();
+        syncSelectors();
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+    refs.refreshAudit.addEventListener('click', async () => {
+      try {
+        await loadAudit();
+        renderAudit();
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+    refs.tokenForm.product_id.addEventListener('change', syncLicenseOptionsForTokenForm);
+    refs.activationLicenseFilter.addEventListener('change', async () => {
+      try {
+        await loadActivations();
+        renderActivations();
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+
+    refs.productForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      try {
+        const payload = {
+          name: refs.productForm.name.value.trim(),
+          policy_defaults: {
+            max_devices: Number(refs.productForm.max_devices.value || 1),
+            offline_grace_days: Number(refs.productForm.offline_grace_days.value || 7),
+            check_in_interval_hours: Number(refs.productForm.check_in_interval_hours.value || 24),
+            features: toJsonOrNull(refs.productForm.features.value, {}),
+          },
+        };
+        await api('/v1/admin/products', { method: 'POST', body: JSON.stringify(payload) });
+        refs.productForm.reset();
+        refs.productForm.max_devices.value = 1;
+        refs.productForm.offline_grace_days.value = 7;
+        refs.productForm.check_in_interval_hours.value = 24;
+        refs.productForm.features.value = '{}';
+        await refresh();
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+
+    refs.licenseForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      try {
+        const expiresAt = refs.licenseForm.expires_at.value.trim();
+        const maxDevices = refs.licenseForm.max_devices.value.trim();
+        const payload = {
+          product_id: refs.licenseForm.product_id.value,
+          type: refs.licenseForm.type.value,
+          expires_at: expiresAt || null,
+          max_devices: maxDevices ? Number(maxDevices) : null,
+          customer: toJsonOrNull(refs.licenseForm.customer.value, {}),
+          metadata: toJsonOrNull(refs.licenseForm.metadata.value, {}),
+        };
+        await api('/v1/admin/licenses', { method: 'POST', body: JSON.stringify(payload) });
+        refs.licenseForm.reset();
+        refs.licenseForm.customer.value = '{}';
+        refs.licenseForm.metadata.value = '{}';
+        await refresh();
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+
+    refs.tokenForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      try {
+        const duration = refs.tokenForm.requested_duration_seconds.value.trim();
+        const payload = {
+          product_id: refs.tokenForm.product_id.value,
+          license_key: refs.tokenForm.license_key.value,
+          device_fingerprint: refs.tokenForm.device_fingerprint.value.trim(),
+          requested_duration_seconds: duration ? Number(duration) : undefined,
+        };
+        const result = await api('/v1/offline-token', { method: 'POST', body: JSON.stringify(payload) }, false);
+        refs.tokenOutput.textContent = JSON.stringify(result, null, 2);
+        setMessage('Offline token issued.', true);
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+
+    document.body.addEventListener('click', async (event) => {
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+      try {
+        if (button.dataset.action === 'revoke-license') {
+          await api(`/v1/admin/licenses/${encodeURIComponent(button.dataset.license)}/revoke`, { method: 'POST' });
+          await refresh();
+        }
+        if (button.dataset.action === 'inspect-license') {
+          const license = await api(`/v1/admin/licenses/${encodeURIComponent(button.dataset.license)}`);
+          setMessage(`<pre>${JSON.stringify(license, null, 2)}</pre>`, true);
+        }
+        if (button.dataset.action === 'revoke-activation') {
+          await api(`/v1/admin/activations/${encodeURIComponent(button.dataset.activation)}/revoke`, { method: 'POST' });
+          await refresh();
+        }
+      } catch (error) {
+        setMessage(error.message, false);
+      }
+    });
+
+    if (state.token) {
+      refresh();
+    } else {
+      setMessage('Set an admin bearer token to load dashboard state.', false);
+    }
+  </script>
+</body>
+</html>

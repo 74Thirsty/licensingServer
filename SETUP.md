@@ -7,8 +7,8 @@
 
 ## Environment
 ```bash
-export ADMIN_TOKEN='replace-with-32+char-secret'
-export DEVICE_SALT='replace-with-32+char-secret'
+export ADMIN_TOKEN=466a8293caf26ce94d3d4339468d810a86ad8ddc19296c6687385379034a6d4a
+export DEVICE_SALT=466a8293caf26ce94d3d4339468d810a86ad8ddc19296c6687385379034a6d4a
 export PORT=4000
 ```
 
