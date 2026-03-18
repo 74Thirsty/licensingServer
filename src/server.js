@@ -32,6 +32,15 @@ function nowSec() { return Math.floor(Date.now() / 1000); }
 function hashDevice(raw) { return crypto.createHash('sha256').update(`${DEVICE_SALT}:${raw}`).digest('hex'); }
 function readBody(req) { return new Promise((resolve) => { let d=''; req.on('data',(c)=>d+=c); req.on('end',()=>{try{resolve(d?JSON.parse(d):{});}catch{resolve({});}}); }); }
 function authOk(req) { const a=req.headers.authorization||''; return a.startsWith('Bearer ') && a.slice(7)===ADMIN_TOKEN; }
+function sanitizeProduct(product) { const { signing_private_key_pem, ...safe } = product; return safe; }
+function listActivationsForLicense(licenseId) { return Object.values(state.activations).filter((activation) => activation.license_id === licenseId); }
+function activeActivationCount(licenseId) { return listActivationsForLicense(licenseId).filter((activation) => activation.status === 'active').length; }
+function licenseSummary(license) {
+  return {
+    ...license,
+    active_devices: activeActivationCount(license.id),
+  };
+}
 
 function policyForProduct(product, license = null) {
   const defaults = product.policy_defaults || {};
@@ -201,6 +210,16 @@ const server = http.createServer(async (req, res) => {
     if (!authOk(req)) return json(res, 401, { error: 'unauthorized' });
 
     if (req.method === 'GET' && url.pathname === '/v1/admin/products') {
+      const products = Object.values(state.products)
+        .map((product) => ({
+          ...sanitizeProduct(product),
+          license_count: Object.values(state.licenses).filter((license) => license.product_id === product.id).length,
+        }))
+        .sort((a, b) => b.created_at.localeCompare(a.created_at));
+      return json(res, 200, { products });
+    }
+
+    if (req.method === 'GET' && url.pathname === '/v1/admin/products') {
       return json(res, 200, { products: Object.values(state.products).map(sanitizeProduct) });
     }
 
@@ -244,7 +263,7 @@ const server = http.createServer(async (req, res) => {
       const license_key = `${body.product_id.slice(0,8).toUpperCase()}-${rand.match(/.{1,5}/g).join('-')}`;
       const license = { id, product_id: body.product_id, license_key, type: body.type || 'subscription', expires_at: body.expires_at || null, max_devices: body.max_devices ?? null, max_seats: body.max_seats ?? null, status: 'active', metadata: body.metadata || {}, customer: body.customer || null, created_at: nowIso() };
       state.licenses[license_key]=license; saveState(state); recordAudit('license_created',{id,product_id:body.product_id,type:license.type},body.product_id,id);
-      return json(res, 201, license);
+      return json(res, 201, licenseSummary(license));
     }
 
     if (req.method === 'GET' && url.pathname.startsWith('/v1/admin/licenses/')) {
@@ -293,7 +312,7 @@ const server = http.createServer(async (req, res) => {
       const license_id = url.searchParams.get('license_id');
       if (product_id) events = events.filter((e)=>e.product_id===product_id);
       if (license_id) events = events.filter((e)=>e.license_id===license_id);
-      return json(res, 200, { events });
+      return json(res, 200, { events: events.sort((a, b) => b.created_at.localeCompare(a.created_at)) });
     }
 
     if (req.method === 'GET' && url.pathname === '/v1/admin/export/audit.csv') {

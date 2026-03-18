@@ -9,7 +9,7 @@ npm start
 ```
 
 - API: `http://localhost:4000`
-- Admin UI: `http://localhost:4000/admin`
+- Admin UI: `http://localhost:4000/admin` (browser dashboard for products, licenses, devices, offline tokens, and audit events)
 - Docs: `http://localhost:4000/docs/README.md`
 - OpenAPI: `http://localhost:4000/openapi.json`
 

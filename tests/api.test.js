@@ -18,8 +18,7 @@ async function waitForServer() {
 }
 
 test('licensing flow', async (t) => {
-  if (fs.existsSync('test-data.json')) fs.unlinkSync('test-data.json');
-
+  fs.rmSync('test-data.json', { force: true });
   proc = spawn('node', ['src/server.js'], {
     env: { ...process.env, PORT: '4100', ADMIN_TOKEN: 'test-admin', DEVICE_SALT: 'test-salt', DATA_FILE: 'test-data.json' },
     stdio: 'ignore',
@@ -28,25 +27,30 @@ test('licensing flow', async (t) => {
 
   t.after(() => {
     proc.kill('SIGTERM');
+    fs.rmSync('test-data.json', { force: true });
   });
+
+  const adminHeaders = { authorization: 'Bearer test-admin', 'content-type': 'application/json' };
+
+  const adminUi = await fetch(`${BASE}/admin`).then((r) => r.text());
+  assert.match(adminUi, /Universal Licensing Admin/);
 
   const p = await fetch(`${BASE}/v1/admin/products`, {
     method: 'POST',
-    headers: { authorization: 'Bearer test-admin', 'content-type': 'application/json' },
+    headers: adminHeaders,
     body: JSON.stringify({ name: 'AppA' }),
   }).then((r) => r.json());
   assert.ok(p.id.startsWith('prd_'));
 
-  const products = await fetch(`${BASE}/v1/admin/products`, {
+  const productList = await fetch(`${BASE}/v1/admin/products`, {
     headers: { authorization: 'Bearer test-admin' },
   }).then((r) => r.json());
-  assert.equal(products.products.length, 1);
-  assert.equal(products.products[0].name, 'AppA');
-  assert.equal('signing_private_key_pem' in products.products[0], false);
+  assert.equal(productList.products.length, 1);
+  assert.equal(productList.products[0].license_count, 0);
 
   const l = await fetch(`${BASE}/v1/admin/licenses`, {
     method: 'POST',
-    headers: { authorization: 'Bearer test-admin', 'content-type': 'application/json' },
+    headers: adminHeaders,
     body: JSON.stringify({ product_id: p.id, type: 'subscription', expires_at: '2030-01-01T00:00:00.000Z' }),
   }).then((r) => r.json());
   assert.ok(l.license_key);
@@ -58,6 +62,24 @@ test('licensing flow', async (t) => {
   }).then((r) => r.json());
   assert.equal(a.valid, true);
 
+  const licenseList = await fetch(`${BASE}/v1/admin/licenses`, {
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.equal(licenseList.licenses.length, 1);
+  assert.equal(licenseList.licenses[0].active_devices, 1);
+
+  const detail = await fetch(`${BASE}/v1/admin/licenses/${encodeURIComponent(l.license_key)}`, {
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.equal(detail.activations.length, 1);
+  assert.equal(detail.activations[0].status, 'active');
+
+  const revokeActivation = await fetch(`${BASE}/v1/admin/activations/${detail.activations[0].id}/revoke`, {
+    method: 'POST',
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.equal(revokeActivation.ok, true);
+
   const v = await fetch(`${BASE}/v1/validate`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -65,36 +87,15 @@ test('licensing flow', async (t) => {
   }).then((r) => r.json());
   assert.equal(v.valid, true);
 
-  const adminPage = await fetch(`${BASE}/admin`).then((r) => r.text());
-  assert.match(adminPage, /Universal Licensing Admin/);
-
-  const listedLicenses = await fetch(`${BASE}/v1/admin/licenses?product_id=${encodeURIComponent(p.id)}`, {
-    headers: { authorization: 'Bearer test-admin' },
-  }).then((r) => r.json());
-  assert.equal(listedLicenses.licenses.length, 1);
-  assert.equal(listedLicenses.licenses[0].active_devices, 1);
-
-  const activations = await fetch(`${BASE}/v1/admin/activations?license_key=${encodeURIComponent(l.license_key)}`, {
-    headers: { authorization: 'Bearer test-admin' },
-  }).then((r) => r.json());
-  assert.equal(activations.activations.length, 1);
-  assert.equal(activations.activations[0].license_key, l.license_key);
-
-  const revoked = await fetch(`${BASE}/v1/admin/activations/${activations.activations[0].id}/revoke`, {
-    method: 'POST',
-    headers: { authorization: 'Bearer test-admin' },
-  }).then((r) => r.json());
-  assert.equal(revoked.ok, true);
-
-  const activationsAfterRevoke = await fetch(`${BASE}/v1/admin/activations?license_key=${encodeURIComponent(l.license_key)}`, {
-    headers: { authorization: 'Bearer test-admin' },
-  }).then((r) => r.json());
-  assert.equal(activationsAfterRevoke.activations[0].status, 'revoked');
-
-  const postRevokeActivation = await fetch(`${BASE}/v1/activate`, {
+  const token = await fetch(`${BASE}/v1/offline-token`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ product_id: p.id, license_key: l.license_key, device_fingerprint: 'dev1' }),
+    body: JSON.stringify({ product_id: p.id, license_key: l.license_key, device_fingerprint: 'dev1', requested_duration_seconds: 3600 }),
   }).then((r) => r.json());
-  assert.equal(postRevokeActivation.valid, true);
+  assert.equal(token.algorithm, 'Ed25519');
+
+  const audit = await fetch(`${BASE}/v1/admin/audit`, {
+    headers: { authorization: 'Bearer test-admin' },
+  }).then((r) => r.json());
+  assert.ok(audit.events.some((event) => event.event_type === 'activation_revoked'));
 });

@@ -61,7 +61,7 @@ curl -s -X POST http://localhost:4000/v1/validate -H 'content-type: application/
 
 ## 6) API Reference
 - OpenAPI: `/openapi.json` or `docs/openapi.json`.
-- Admin UI: `/admin`.
+- Admin UI: `/admin` with token-backed product/license/device management, offline token issuance, and audit inspection.
 - Docs endpoint: `/docs/README.md`.
 
 ## 7) Troubleshooting
