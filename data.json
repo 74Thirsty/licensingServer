@@ -1,0 +1,109 @@
+{
+  "products": {
+    "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11": {
+      "id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "name": "Setup Smoke Test",
+      "created_at": "2026-03-18T18:38:11.430Z",
+      "offline_public_key": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAJmXPTD0Fbsvt73A2fkNlmFLcOc90TmAhKllzwPjISGE=\n-----END PUBLIC KEY-----\n",
+      "signing_private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIAOUhd3xam+yafEDW0gWXutpmlmBTM+gwLIpyTvE8bf9\n-----END PRIVATE KEY-----\n",
+      "policy_defaults": {
+        "max_devices": 1,
+        "max_seats": null,
+        "offline_grace_days": 7,
+        "check_in_interval_hours": 24,
+        "trial_length_days": 14,
+        "features": {},
+        "privacy_mode": "fingerprint"
+      }
+    }
+  },
+  "licenses": {
+    "PRD_6FCC-8E953-B72AF-CB219-9608C": {
+      "id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_key": "PRD_6FCC-8E953-B72AF-CB219-9608C",
+      "type": "subscription",
+      "expires_at": "2031-01-01T00:00:00.000Z",
+      "max_devices": null,
+      "max_seats": null,
+      "status": "revoked",
+      "metadata": {},
+      "customer": null,
+      "created_at": "2026-03-18T18:38:11.514Z"
+    }
+  },
+  "activations": {
+    "73a665a8-778c-4bd7-b058-7f44b81dd717": {
+      "id": "73a665a8-778c-4bd7-b058-7f44b81dd717",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "device_fingerprint_hash": "4a4c5cc277ac88302dad463d9f6d271a955496899d61e62c8df9d8cfca358825",
+      "first_seen_at": "2026-03-18T18:38:11.589Z",
+      "last_seen_at": "2026-03-18T18:38:11.589Z",
+      "status": "active",
+      "ip_last": "::1",
+      "app_version_last": "1.0.0"
+    }
+  },
+  "audit": [
+    {
+      "id": "7f0b9d07-a6f9-49a6-a825-7ec6bfdda06b",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": null,
+      "event_type": "product_created",
+      "payload": {
+        "id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "name": "Setup Smoke Test"
+      },
+      "created_at": "2026-03-18T18:38:11.433Z"
+    },
+    {
+      "id": "bb6ceeeb-a95f-42c4-a7ed-dd78ced5d1bd",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "license_created",
+      "payload": {
+        "id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "type": "subscription"
+      },
+      "created_at": "2026-03-18T18:38:11.515Z"
+    },
+    {
+      "id": "f1e60143-62a7-4824-9ff2-7477ddd20a1f",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "activate",
+      "payload": {
+        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "license_key": "PRD_6FCC-8E953-B72AF-CB219-9608C",
+        "activation_id": "73a665a8-778c-4bd7-b058-7f44b81dd717"
+      },
+      "created_at": "2026-03-18T18:38:11.590Z"
+    },
+    {
+      "id": "156fadc0-0a55-4e2a-9468-95400c5b46ae",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "license_revoked",
+      "payload": {
+        "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035"
+      },
+      "created_at": "2026-03-18T18:38:11.650Z"
+    },
+    {
+      "id": "f456a00d-2b84-43f5-b471-3bd928ac98f5",
+      "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+      "license_id": "lic_0940cf2c-465e-4a9c-8730-bfc4c0370035",
+      "event_type": "validate",
+      "payload": {
+        "product_id": "prd_6fcc04e1-fa40-4d3d-a10a-d26bfa2a2e11",
+        "license_key": "PRD_6FCC-8E953-B72AF-CB219-9608C",
+        "app_version": "1.0.0",
+        "valid": false,
+        "status": "revoked"
+      },
+      "created_at": "2026-03-18T18:38:11.669Z"
+    }
+  ],
+  "lockouts": {}
+}

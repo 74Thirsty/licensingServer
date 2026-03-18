@@ -5,6 +5,12 @@
 - HTTP API served by `src/server.js`
 - JSON state backend (`data.json` by default)
 
+## What secret is actually required?
+- There is no OpenAI/Anthropic/third-party API key in this repo.
+- The only required secret for admin operations is `ADMIN_TOKEN`.
+- `ADMIN_TOKEN` gates `/v1/admin/*` and the `/admin` browser UI.
+- `DEVICE_SALT` is also required in practice because device fingerprints are salted before hashing.
+
 ## Environment
 ```bash
 export ADMIN_TOKEN=$(openssl rand -hex 32)
@@ -16,6 +22,28 @@ export PORT=4000
 ```bash
 npm install
 npm start
+```
+
+If you used `./scripts/setup.sh`, it created `.env` and the server now auto-loads it on boot. You do not need `source .env` first anymore.
+
+## Setup script behavior
+```bash
+./scripts/setup.sh
+```
+
+What it does:
+- installs dependencies
+- creates `.env` if missing
+- optionally runs a temporary smoke test
+
+What it does not do:
+- it does not keep the backend running after the script exits unless you pass `--start`
+- it does not pre-create a product/license because those are runtime records in `data.json`
+
+If you want the script to finish by starting the backend:
+
+```bash
+./scripts/setup.sh --start
 ```
 
 ## Bootstrapping

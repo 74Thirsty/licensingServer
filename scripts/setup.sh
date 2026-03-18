@@ -29,8 +29,17 @@ fail() {
 
 confirm() {
   local prompt="$1"
+  local default="${2:-}"
   while true; do
-    read -r -p "$prompt [y/n]: " yn
+    if [[ "$default" == "y" ]]; then
+      read -r -p "$prompt [Y/n]: " yn
+      yn="${yn:-Y}"
+    elif [[ "$default" == "n" ]]; then
+      read -r -p "$prompt [y/N]: " yn
+      yn="${yn:-N}"
+    else
+      read -r -p "$prompt [y/n]: " yn
+    fi
     case "$yn" in
       [Yy]*) return 0 ;;
       [Nn]*) return 1 ;;
@@ -203,9 +212,19 @@ show_next_steps() {
 
 Setup complete.
 
-To run the server manually:
-  source .env
-  npm start
+What the setup script did:
+  - installed npm dependencies
+  - generated .env with PORT, ADMIN_TOKEN, and DEVICE_SALT
+  - optionally ran a temporary smoke-test server, then stopped it
+
+What it did not do:
+  - it does not create products or licenses for you
+  - it does not keep the backend running after the script exits unless you pass --start
+  - it does not export variables into your current shell session permanently
+
+Required secret for the admin API/UI:
+  - ADMIN_TOKEN in .env is the bearer token the /admin UI and /v1/admin/* endpoints require
+  - there is no external third-party API key in this project
 
 API quick checks:
   curl -X POST http://localhost:${PORT:-4000}/v1/admin/products \
@@ -216,10 +235,28 @@ API quick checks:
   curl -X POST http://localhost:${PORT:-4000}/v1/validate \
     -H 'Content-Type: application/json' \
     -d '{"product_id":"<PRODUCT_ID>","license_key":"<LICENSE_KEY>","device_fingerprint":"devbox-1"}'
+
+To run the backend now:
+  npm start
+
+To start it immediately after setup next time:
+  ./scripts/setup.sh --start
 TXT
 }
 
 main() {
+  local run_smoke="${RUN_SMOKE_TEST:-ask}"
+  local start_server=0
+
+  for arg in "$@"; do
+    case "$arg" in
+      --smoke-test) run_smoke="y" ;;
+      --skip-smoke-test) run_smoke="n" ;;
+      --start) start_server=1 ;;
+      *) fail "Unknown argument: $arg" ;;
+    esac
+  done
+
   echo "Licensing Server Setup Wizard"
   echo "============================="
 
@@ -235,13 +272,18 @@ main() {
   setup_env_file
   load_env
 
-  if confirm "Run end-to-end API smoke test now?"; then
+  if [[ "$run_smoke" == "y" ]] || ([[ "$run_smoke" == "ask" ]] && confirm "Run end-to-end API smoke test now?" "y"); then
     run_smoke_test
   else
     warn "Skipped smoke test."
   fi
 
   show_next_steps
+
+  if [[ "$start_server" -eq 1 ]]; then
+    log "Starting backend on http://localhost:${PORT:-4000}"
+    exec npm start
+  fi
 }
 
 main "$@"

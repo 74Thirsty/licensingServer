@@ -3,7 +3,10 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { loadEnvFile } from './env.js';
 import { loadState, saveState } from './store.js';
+
+loadEnvFile();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

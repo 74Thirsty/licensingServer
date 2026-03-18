@@ -1,5 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import { loadEnvFile } from './env.js';
+
+loadEnvFile();
 
 const DATA_FILE = process.env.DATA_FILE || path.join(process.cwd(), 'data.json');
 
