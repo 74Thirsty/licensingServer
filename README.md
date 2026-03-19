@@ -3,6 +3,16 @@
 ![Sheen Banner](https://raw.githubusercontent.com/74Thirsty/74Thirsty/main/assets/licensing.svg)
 
 
+<!-- API + engine -->
+![AI Engine](https://img.shields.io/badge/AI-Grok_API-black?logo=rocket&logoColor=white)
+![Symbol Systems](https://img.shields.io/badge/Symbol_Systems-Destiny-blue?logo=apachespark&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?logo=open-source-initiative&logoColor=white)
+![Issues](https://img.shields.io/github/issues/74Thirsty/licensingServer?logo=githubissues&logoColor=white)
+![Pull Requests](https://img.shields.io/github/issues-pr/74Thirsty/licensingServer?logo=git&logoColor=white)
+![Last Commit](https://img.shields.io/github/last-commit/74Thirsty/licensingServer?logo=github&logoColor=white)
+![Lead Developer](https://img.shields.io/badge/Lead_Developer-C._Hirschauer-0A7AAA?logo=codefactor)
+
+
 Multi-product licensing API with activation, validation, offline Ed25519 tokens, admin endpoints, audit logging, rate limiting, and a reference client SDK.
 
 ## Run
