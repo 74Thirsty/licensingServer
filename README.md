@@ -1,5 +1,8 @@
 # Universal Licensing Server
 
+![Sheen Banner](https://raw.githubusercontent.com/74Thirsty/74Thirsty/main/assets/licensing.svg)
+
+
 Multi-product licensing API with activation, validation, offline Ed25519 tokens, admin endpoints, audit logging, rate limiting, and a reference client SDK.
 
 ## Run
